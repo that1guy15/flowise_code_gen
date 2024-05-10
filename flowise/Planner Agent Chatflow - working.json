@@ -1,0 +1,1862 @@
+{
+  "nodes": [
+    {
+      "id": "promptTemplate_0",
+      "position": {
+        "x": -309.490903493999,
+        "y": 91.06168988853409
+      },
+      "type": "customNode",
+      "data": {
+        "id": "promptTemplate_0",
+        "label": "Prompt Template",
+        "version": 1,
+        "name": "promptTemplate",
+        "type": "PromptTemplate",
+        "baseClasses": [
+          "PromptTemplate",
+          "BaseStringPromptTemplate",
+          "BasePromptTemplate",
+          "Runnable"
+        ],
+        "category": "Prompts",
+        "description": "Schema to represent a basic prompt for an LLM",
+        "inputParams": [
+          {
+            "label": "Template",
+            "name": "template",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "What is a good name for a company that makes {product}?",
+            "id": "promptTemplate_0-input-template-string"
+          },
+          {
+            "label": "Format Prompt Values",
+            "name": "promptValues",
+            "type": "json",
+            "optional": true,
+            "acceptVariable": true,
+            "list": true,
+            "id": "promptTemplate_0-input-promptValues-json"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "template": "You are an experienced software architect.\nThe user input is: {user_input}\n\nYour task is to create a step-by-step plan to solve the user input: \n\nDo not write any code ever. Only create a plan.\n\nTake the input from the user and create a plan that best solves the problem.\nYou have to be crystal clear when explaining the plan.\nSolve the task step by step if you need to.\n\nAlways follow this process, and only this process:\n1. take the user input and create the best plan of action\n2. Evaluate the plan to make sure it is possible to build\n2. output the finalized plan\n",
+          "promptValues": "{\"user_input\":\"{{question}}\"}"
+        },
+        "outputAnchors": [
+          {
+            "id": "promptTemplate_0-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable",
+            "name": "promptTemplate",
+            "label": "PromptTemplate",
+            "description": "Schema to represent a basic prompt for an LLM",
+            "type": "PromptTemplate | BaseStringPromptTemplate | BasePromptTemplate | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 544,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -309.490903493999,
+        "y": 91.06168988853409
+      },
+      "dragging": false
+    },
+    {
+      "id": "llmChain_0",
+      "position": {
+        "x": 192.3069774997764,
+        "y": -236.41185005572603
+      },
+      "type": "customNode",
+      "data": {
+        "id": "llmChain_0",
+        "label": "LLM Chain",
+        "version": 3,
+        "name": "llmChain",
+        "type": "LLMChain",
+        "baseClasses": [
+          "LLMChain",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Chains",
+        "description": "Chain to run queries against LLMs",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "chainName",
+            "type": "string",
+            "placeholder": "Name Your Chain",
+            "optional": true,
+            "id": "llmChain_0-input-chainName-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Language Model",
+            "name": "model",
+            "type": "BaseLanguageModel",
+            "id": "llmChain_0-input-model-BaseLanguageModel"
+          },
+          {
+            "label": "Prompt",
+            "name": "prompt",
+            "type": "BasePromptTemplate",
+            "id": "llmChain_0-input-prompt-BasePromptTemplate"
+          },
+          {
+            "label": "Output Parser",
+            "name": "outputParser",
+            "type": "BaseLLMOutputParser",
+            "optional": true,
+            "id": "llmChain_0-input-outputParser-BaseLLMOutputParser"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "llmChain_0-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "model": "{{chatOpenAI_0.data.instance}}",
+          "prompt": "{{promptTemplate_0.data.instance}}",
+          "outputParser": "",
+          "inputModeration": "",
+          "chainName": "Planner"
+        },
+        "outputAnchors": [
+          {
+            "name": "output",
+            "label": "Output",
+            "type": "options",
+            "description": "",
+            "options": [
+              {
+                "id": "llmChain_0-output-llmChain-LLMChain|BaseChain|Runnable",
+                "name": "llmChain",
+                "label": "LLM Chain",
+                "description": "",
+                "type": "LLMChain | BaseChain | Runnable"
+              },
+              {
+                "id": "llmChain_0-output-outputPrediction-string|json",
+                "name": "outputPrediction",
+                "label": "Output Prediction",
+                "description": "",
+                "type": "string | json"
+              }
+            ],
+            "default": "llmChain"
+          }
+        ],
+        "outputs": {
+          "output": "outputPrediction"
+        },
+        "selected": false
+      },
+      "width": 300,
+      "height": 551,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 192.3069774997764,
+        "y": -236.41185005572603
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatOpenAI_0",
+      "position": {
+        "x": -306.9897344405899,
+        "y": -651.0565918330205
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatOpenAI_0",
+        "label": "ChatOpenAI",
+        "version": 6,
+        "name": "chatOpenAI",
+        "type": "ChatOpenAI",
+        "baseClasses": [
+          "ChatOpenAI",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around OpenAI large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "openAIApi"
+            ],
+            "id": "chatOpenAI_0-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "gpt-3.5-turbo",
+            "id": "chatOpenAI_0-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatOpenAI_0-input-temperature-number"
+          },
+          {
+            "label": "Max Tokens",
+            "name": "maxTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_0-input-maxTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_0-input-topP-number"
+          },
+          {
+            "label": "Frequency Penalty",
+            "name": "frequencyPenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_0-input-frequencyPenalty-number"
+          },
+          {
+            "label": "Presence Penalty",
+            "name": "presencePenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_0-input-presencePenalty-number"
+          },
+          {
+            "label": "Timeout",
+            "name": "timeout",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_0-input-timeout-number"
+          },
+          {
+            "label": "BasePath",
+            "name": "basepath",
+            "type": "string",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_0-input-basepath-string"
+          },
+          {
+            "label": "BaseOptions",
+            "name": "baseOptions",
+            "type": "json",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_0-input-baseOptions-json"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Automatically uses gpt-4-vision-preview when image is being uploaded from chat. Only works with LLMChain, Conversation Chain, ReAct Agent, and Conversational Agent",
+            "default": false,
+            "optional": true,
+            "id": "chatOpenAI_0-input-allowImageUploads-boolean"
+          },
+          {
+            "label": "Image Resolution",
+            "description": "This parameter controls the resolution in which the model views the image.",
+            "name": "imageResolution",
+            "type": "options",
+            "options": [
+              {
+                "label": "Low",
+                "name": "low"
+              },
+              {
+                "label": "High",
+                "name": "high"
+              },
+              {
+                "label": "Auto",
+                "name": "auto"
+              }
+            ],
+            "default": "low",
+            "optional": false,
+            "additionalParams": true,
+            "id": "chatOpenAI_0-input-imageResolution-options"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatOpenAI_0-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "{{inMemoryCache_0.data.instance}}",
+          "modelName": "gpt-4-turbo",
+          "temperature": "0.9",
+          "maxTokens": "",
+          "topP": "",
+          "frequencyPenalty": "",
+          "presencePenalty": "",
+          "timeout": "",
+          "basepath": "",
+          "baseOptions": "",
+          "allowImageUploads": "",
+          "imageResolution": "low"
+        },
+        "outputAnchors": [
+          {
+            "id": "chatOpenAI_0-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatOpenAI",
+            "label": "ChatOpenAI",
+            "description": "Wrapper around OpenAI large language models that use the Chat endpoint",
+            "type": "ChatOpenAI | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 729,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -306.9897344405899,
+        "y": -651.0565918330205
+      }
+    },
+    {
+      "id": "promptTemplate_1",
+      "position": {
+        "x": 546.0823666207758,
+        "y": 118.16311693570321
+      },
+      "type": "customNode",
+      "data": {
+        "id": "promptTemplate_1",
+        "label": "Prompt Template",
+        "version": 1,
+        "name": "promptTemplate",
+        "type": "PromptTemplate",
+        "baseClasses": [
+          "PromptTemplate",
+          "BaseStringPromptTemplate",
+          "BasePromptTemplate",
+          "Runnable"
+        ],
+        "category": "Prompts",
+        "description": "Schema to represent a basic prompt for an LLM",
+        "inputParams": [
+          {
+            "label": "Template",
+            "name": "template",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "What is a good name for a company that makes {product}?",
+            "id": "promptTemplate_1-input-template-string"
+          },
+          {
+            "label": "Format Prompt Values",
+            "name": "promptValues",
+            "type": "json",
+            "optional": true,
+            "acceptVariable": true,
+            "list": true,
+            "id": "promptTemplate_1-input-promptValues-json"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "template": "You are a master software engineer.\nYour task is to write code based on the plan: {plan}\n\nSolve the plan using your coding and programming skills.\nUse Python by default unless specified.\n\nSolve the task step-by-step if you need to.\nIf a plan is not provided, explain your steps first.\nBe clear about which step uses code and which step uses your language skills.\n\nAll code must be formatted into a code block, and you must indicate the script type in the code block.\nYou must include instructions for using the code along with any sample data needed to help test and validate the functionality.\n\n\n",
+          "promptValues": "{\"plan\":\"{{llmChain_0.data.instance}}\"}"
+        },
+        "outputAnchors": [
+          {
+            "id": "promptTemplate_1-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable",
+            "name": "promptTemplate",
+            "label": "PromptTemplate",
+            "description": "Schema to represent a basic prompt for an LLM",
+            "type": "PromptTemplate | BaseStringPromptTemplate | BasePromptTemplate | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 544,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 546.0823666207758,
+        "y": 118.16311693570321
+      },
+      "dragging": false
+    },
+    {
+      "id": "llmChain_1",
+      "position": {
+        "x": 951.8087375139885,
+        "y": -210.5960279860823
+      },
+      "type": "customNode",
+      "data": {
+        "id": "llmChain_1",
+        "label": "LLM Chain",
+        "version": 3,
+        "name": "llmChain",
+        "type": "LLMChain",
+        "baseClasses": [
+          "LLMChain",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Chains",
+        "description": "Chain to run queries against LLMs",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "chainName",
+            "type": "string",
+            "placeholder": "Name Your Chain",
+            "optional": true,
+            "id": "llmChain_1-input-chainName-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Language Model",
+            "name": "model",
+            "type": "BaseLanguageModel",
+            "id": "llmChain_1-input-model-BaseLanguageModel"
+          },
+          {
+            "label": "Prompt",
+            "name": "prompt",
+            "type": "BasePromptTemplate",
+            "id": "llmChain_1-input-prompt-BasePromptTemplate"
+          },
+          {
+            "label": "Output Parser",
+            "name": "outputParser",
+            "type": "BaseLLMOutputParser",
+            "optional": true,
+            "id": "llmChain_1-input-outputParser-BaseLLMOutputParser"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "llmChain_1-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "model": "{{chatOpenAI_1.data.instance}}",
+          "prompt": "{{promptTemplate_1.data.instance}}",
+          "outputParser": "",
+          "inputModeration": "",
+          "chainName": "Programmer"
+        },
+        "outputAnchors": [
+          {
+            "name": "output",
+            "label": "Output",
+            "type": "options",
+            "description": "",
+            "options": [
+              {
+                "id": "llmChain_1-output-llmChain-LLMChain|BaseChain|Runnable",
+                "name": "llmChain",
+                "label": "LLM Chain",
+                "description": "",
+                "type": "LLMChain | BaseChain | Runnable"
+              },
+              {
+                "id": "llmChain_1-output-outputPrediction-string|json",
+                "name": "outputPrediction",
+                "label": "Output Prediction",
+                "description": "",
+                "type": "string | json"
+              }
+            ],
+            "default": "llmChain"
+          }
+        ],
+        "outputs": {
+          "output": "outputPrediction"
+        },
+        "selected": false
+      },
+      "width": 300,
+      "height": 551,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 951.8087375139885,
+        "y": -210.5960279860823
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatOpenAI_1",
+      "position": {
+        "x": 548.6876396983397,
+        "y": -654.4062073101047
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatOpenAI_1",
+        "label": "ChatOpenAI",
+        "version": 6,
+        "name": "chatOpenAI",
+        "type": "ChatOpenAI",
+        "baseClasses": [
+          "ChatOpenAI",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around OpenAI large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "openAIApi"
+            ],
+            "id": "chatOpenAI_1-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "gpt-3.5-turbo",
+            "id": "chatOpenAI_1-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatOpenAI_1-input-temperature-number"
+          },
+          {
+            "label": "Max Tokens",
+            "name": "maxTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_1-input-maxTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_1-input-topP-number"
+          },
+          {
+            "label": "Frequency Penalty",
+            "name": "frequencyPenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_1-input-frequencyPenalty-number"
+          },
+          {
+            "label": "Presence Penalty",
+            "name": "presencePenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_1-input-presencePenalty-number"
+          },
+          {
+            "label": "Timeout",
+            "name": "timeout",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_1-input-timeout-number"
+          },
+          {
+            "label": "BasePath",
+            "name": "basepath",
+            "type": "string",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_1-input-basepath-string"
+          },
+          {
+            "label": "BaseOptions",
+            "name": "baseOptions",
+            "type": "json",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_1-input-baseOptions-json"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Automatically uses gpt-4-vision-preview when image is being uploaded from chat. Only works with LLMChain, Conversation Chain, ReAct Agent, and Conversational Agent",
+            "default": false,
+            "optional": true,
+            "id": "chatOpenAI_1-input-allowImageUploads-boolean"
+          },
+          {
+            "label": "Image Resolution",
+            "description": "This parameter controls the resolution in which the model views the image.",
+            "name": "imageResolution",
+            "type": "options",
+            "options": [
+              {
+                "label": "Low",
+                "name": "low"
+              },
+              {
+                "label": "High",
+                "name": "high"
+              },
+              {
+                "label": "Auto",
+                "name": "auto"
+              }
+            ],
+            "default": "low",
+            "optional": false,
+            "additionalParams": true,
+            "id": "chatOpenAI_1-input-imageResolution-options"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatOpenAI_1-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "{{inMemoryCache_0.data.instance}}",
+          "modelName": "gpt-4-turbo",
+          "temperature": "0.1",
+          "maxTokens": "",
+          "topP": "",
+          "frequencyPenalty": "",
+          "presencePenalty": "",
+          "timeout": "",
+          "basepath": "",
+          "baseOptions": "",
+          "allowImageUploads": "",
+          "imageResolution": "low"
+        },
+        "outputAnchors": [
+          {
+            "id": "chatOpenAI_1-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatOpenAI",
+            "label": "ChatOpenAI",
+            "description": "Wrapper around OpenAI large language models that use the Chat endpoint",
+            "type": "ChatOpenAI | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 729,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 548.6876396983397,
+        "y": -654.4062073101047
+      }
+    },
+    {
+      "id": "inMemoryCache_0",
+      "position": {
+        "x": 1051.4854572691004,
+        "y": -987.7260463114673
+      },
+      "type": "customNode",
+      "data": {
+        "id": "inMemoryCache_0",
+        "label": "InMemory Cache",
+        "version": 1,
+        "name": "inMemoryCache",
+        "type": "InMemoryCache",
+        "baseClasses": [
+          "InMemoryCache",
+          "BaseCache"
+        ],
+        "category": "Cache",
+        "description": "Cache LLM response in memory, will be cleared once app restarted",
+        "inputParams": [],
+        "inputAnchors": [],
+        "inputs": {},
+        "outputAnchors": [
+          {
+            "id": "inMemoryCache_0-output-inMemoryCache-InMemoryCache|BaseCache",
+            "name": "inMemoryCache",
+            "label": "InMemoryCache",
+            "description": "Cache LLM response in memory, will be cleared once app restarted",
+            "type": "InMemoryCache | BaseCache"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 153,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1051.4854572691004,
+        "y": -987.7260463114673
+      },
+      "dragging": false
+    },
+    {
+      "id": "promptTemplate_2",
+      "position": {
+        "x": 1431.1978745788797,
+        "y": 117.78684227449585
+      },
+      "type": "customNode",
+      "data": {
+        "id": "promptTemplate_2",
+        "label": "Prompt Template",
+        "version": 1,
+        "name": "promptTemplate",
+        "type": "PromptTemplate",
+        "baseClasses": [
+          "PromptTemplate",
+          "BaseStringPromptTemplate",
+          "BasePromptTemplate",
+          "Runnable"
+        ],
+        "category": "Prompts",
+        "description": "Schema to represent a basic prompt for an LLM",
+        "inputParams": [
+          {
+            "label": "Template",
+            "name": "template",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "What is a good name for a company that makes {product}?",
+            "id": "promptTemplate_2-input-template-string"
+          },
+          {
+            "label": "Format Prompt Values",
+            "name": "promptValues",
+            "type": "json",
+            "optional": true,
+            "acceptVariable": true,
+            "list": true,
+            "id": "promptTemplate_2-input-promptValues-json"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "template": "You are an expert software test engineer.\nYour task is to run and test the code provided here: {code}\n\nDo not edit the code provided.\nIf test cases and expected output are not provided, create them first.\nWhen you find valid test cases, verify the cases carefully.\nThe main goal is to have code that actually works.\n\nIf the code provided doesn't pass all tests return the message 'TEST FAILED' along with all output from running the code. If the code provided does work and all tests pass, return 'TEST PASSED'.\n",
+          "promptValues": "{\"code\":\"\"}"
+        },
+        "outputAnchors": [
+          {
+            "id": "promptTemplate_2-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable",
+            "name": "promptTemplate",
+            "label": "PromptTemplate",
+            "description": "Schema to represent a basic prompt for an LLM",
+            "type": "PromptTemplate | BaseStringPromptTemplate | BasePromptTemplate | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 544,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 1431.1978745788797,
+        "y": 117.78684227449585
+      }
+    },
+    {
+      "id": "chatOpenAI_2",
+      "position": {
+        "x": 1433.485326050058,
+        "y": -638.099845935466
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatOpenAI_2",
+        "label": "ChatOpenAI",
+        "version": 6,
+        "name": "chatOpenAI",
+        "type": "ChatOpenAI",
+        "baseClasses": [
+          "ChatOpenAI",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around OpenAI large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "openAIApi"
+            ],
+            "id": "chatOpenAI_2-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "gpt-3.5-turbo",
+            "id": "chatOpenAI_2-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatOpenAI_2-input-temperature-number"
+          },
+          {
+            "label": "Max Tokens",
+            "name": "maxTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_2-input-maxTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_2-input-topP-number"
+          },
+          {
+            "label": "Frequency Penalty",
+            "name": "frequencyPenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_2-input-frequencyPenalty-number"
+          },
+          {
+            "label": "Presence Penalty",
+            "name": "presencePenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_2-input-presencePenalty-number"
+          },
+          {
+            "label": "Timeout",
+            "name": "timeout",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_2-input-timeout-number"
+          },
+          {
+            "label": "BasePath",
+            "name": "basepath",
+            "type": "string",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_2-input-basepath-string"
+          },
+          {
+            "label": "BaseOptions",
+            "name": "baseOptions",
+            "type": "json",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_2-input-baseOptions-json"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Automatically uses gpt-4-vision-preview when image is being uploaded from chat. Only works with LLMChain, Conversation Chain, ReAct Agent, and Conversational Agent",
+            "default": false,
+            "optional": true,
+            "id": "chatOpenAI_2-input-allowImageUploads-boolean"
+          },
+          {
+            "label": "Image Resolution",
+            "description": "This parameter controls the resolution in which the model views the image.",
+            "name": "imageResolution",
+            "type": "options",
+            "options": [
+              {
+                "label": "Low",
+                "name": "low"
+              },
+              {
+                "label": "High",
+                "name": "high"
+              },
+              {
+                "label": "Auto",
+                "name": "auto"
+              }
+            ],
+            "default": "low",
+            "optional": false,
+            "additionalParams": true,
+            "id": "chatOpenAI_2-input-imageResolution-options"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatOpenAI_2-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "{{inMemoryCache_0.data.instance}}",
+          "modelName": "gpt-4-turbo",
+          "temperature": "0.1",
+          "maxTokens": "",
+          "topP": "",
+          "frequencyPenalty": "",
+          "presencePenalty": "",
+          "timeout": "",
+          "basepath": "",
+          "baseOptions": "",
+          "allowImageUploads": "",
+          "imageResolution": "low"
+        },
+        "outputAnchors": [
+          {
+            "id": "chatOpenAI_2-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatOpenAI",
+            "label": "ChatOpenAI",
+            "description": "Wrapper around OpenAI large language models that use the Chat endpoint",
+            "type": "ChatOpenAI | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 729,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 1433.485326050058,
+        "y": -638.099845935466
+      }
+    },
+    {
+      "id": "llmChain_2",
+      "position": {
+        "x": 1872.2332929664399,
+        "y": -174.25223981255184
+      },
+      "type": "customNode",
+      "data": {
+        "id": "llmChain_2",
+        "label": "LLM Chain",
+        "version": 3,
+        "name": "llmChain",
+        "type": "LLMChain",
+        "baseClasses": [
+          "LLMChain",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Chains",
+        "description": "Chain to run queries against LLMs",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "chainName",
+            "type": "string",
+            "placeholder": "Name Your Chain",
+            "optional": true,
+            "id": "llmChain_2-input-chainName-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Language Model",
+            "name": "model",
+            "type": "BaseLanguageModel",
+            "id": "llmChain_2-input-model-BaseLanguageModel"
+          },
+          {
+            "label": "Prompt",
+            "name": "prompt",
+            "type": "BasePromptTemplate",
+            "id": "llmChain_2-input-prompt-BasePromptTemplate"
+          },
+          {
+            "label": "Output Parser",
+            "name": "outputParser",
+            "type": "BaseLLMOutputParser",
+            "optional": true,
+            "id": "llmChain_2-input-outputParser-BaseLLMOutputParser"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "llmChain_2-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "model": "{{chatOpenAI_2.data.instance}}",
+          "prompt": "{{promptTemplate_2.data.instance}}",
+          "outputParser": "{{structuredOutputParser_0.data.instance}}",
+          "inputModeration": "",
+          "chainName": "Tester"
+        },
+        "outputAnchors": [
+          {
+            "name": "output",
+            "label": "Output",
+            "type": "options",
+            "description": "",
+            "options": [
+              {
+                "id": "llmChain_2-output-llmChain-LLMChain|BaseChain|Runnable",
+                "name": "llmChain",
+                "label": "LLM Chain",
+                "description": "",
+                "type": "LLMChain | BaseChain | Runnable"
+              },
+              {
+                "id": "llmChain_2-output-outputPrediction-string|json",
+                "name": "outputPrediction",
+                "label": "Output Prediction",
+                "description": "",
+                "type": "string | json"
+              }
+            ],
+            "default": "llmChain"
+          }
+        ],
+        "outputs": {
+          "output": "llmChain"
+        },
+        "selected": false
+      },
+      "width": 300,
+      "height": 551,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1872.2332929664399,
+        "y": -174.25223981255184
+      },
+      "dragging": false
+    },
+    {
+      "id": "structuredOutputParser_0",
+      "position": {
+        "x": 1429.0971871376119,
+        "y": 689.5465370574522
+      },
+      "type": "customNode",
+      "data": {
+        "id": "structuredOutputParser_0",
+        "label": "Structured Output Parser",
+        "version": 1,
+        "name": "structuredOutputParser",
+        "type": "StructuredOutputParser",
+        "baseClasses": [
+          "StructuredOutputParser",
+          "BaseLLMOutputParser",
+          "Runnable"
+        ],
+        "category": "Output Parsers",
+        "description": "Parse the output of an LLM call into a given (JSON) structure.",
+        "inputParams": [
+          {
+            "label": "Autofix",
+            "name": "autofixParser",
+            "type": "boolean",
+            "optional": true,
+            "description": "In the event that the first call fails, will make another call to the model to fix any errors.",
+            "id": "structuredOutputParser_0-input-autofixParser-boolean"
+          },
+          {
+            "label": "JSON Structure",
+            "name": "jsonStructure",
+            "type": "datagrid",
+            "description": "JSON structure for LLM to return",
+            "datagrid": [
+              {
+                "field": "property",
+                "headerName": "Property",
+                "editable": true
+              },
+              {
+                "field": "type",
+                "headerName": "Type",
+                "type": "singleSelect",
+                "valueOptions": [
+                  "string",
+                  "number",
+                  "boolean"
+                ],
+                "editable": true
+              },
+              {
+                "field": "description",
+                "headerName": "Description",
+                "editable": true,
+                "flex": 1
+              }
+            ],
+            "default": [
+              {
+                "property": "answer",
+                "type": "string",
+                "description": "answer to the user's question"
+              },
+              {
+                "property": "source",
+                "type": "string",
+                "description": "sources used to answer the question, should be websites"
+              }
+            ],
+            "additionalParams": true,
+            "id": "structuredOutputParser_0-input-jsonStructure-datagrid"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "autofixParser": "",
+          "jsonStructure": "[{\"property\":\"passed\",\"type\":\"boolean\",\"description\":\"Testing status. \",\"actions\":\"\",\"id\":0},{\"property\":\"output\",\"type\":\"string\",\"description\":\"output from the testing\",\"actions\":\"\",\"id\":1},{\"property\":\"body\",\"type\":\"string\",\"description\":\"Generated code being tested\",\"actions\":\"\",\"id\":2}]"
+        },
+        "outputAnchors": [
+          {
+            "id": "structuredOutputParser_0-output-structuredOutputParser-StructuredOutputParser|BaseLLMOutputParser|Runnable",
+            "name": "structuredOutputParser",
+            "label": "StructuredOutputParser",
+            "description": "Parse the output of an LLM call into a given (JSON) structure.",
+            "type": "StructuredOutputParser | BaseLLMOutputParser | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 354,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1429.0971871376119,
+        "y": 689.5465370574522
+      },
+      "dragging": false
+    },
+    {
+      "id": "chainTool_0",
+      "position": {
+        "x": 2382.3326311801343,
+        "y": -333.61314095002547
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chainTool_0",
+        "label": "Chain Tool",
+        "version": 1,
+        "name": "chainTool",
+        "type": "ChainTool",
+        "baseClasses": [
+          "ChainTool",
+          "DynamicTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use a chain as allowed tool for agent",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "name",
+            "type": "string",
+            "placeholder": "state-of-union-qa",
+            "id": "chainTool_0-input-name-string"
+          },
+          {
+            "label": "Chain Description",
+            "name": "description",
+            "type": "string",
+            "rows": 3,
+            "placeholder": "State of the Union QA - useful for when you need to ask questions about the most recent state of the union address.",
+            "id": "chainTool_0-input-description-string"
+          },
+          {
+            "label": "Return Direct",
+            "name": "returnDirect",
+            "type": "boolean",
+            "optional": true,
+            "id": "chainTool_0-input-returnDirect-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Base Chain",
+            "name": "baseChain",
+            "type": "BaseChain",
+            "id": "chainTool_0-input-baseChain-BaseChain"
+          }
+        ],
+        "inputs": {
+          "name": "code_gen_chat",
+          "description": "Code Generation chain. Use this chain when you need to plan, build and test code.",
+          "returnDirect": false,
+          "baseChain": "{{llmChain_2.data.instance}}"
+        },
+        "outputAnchors": [
+          {
+            "id": "chainTool_0-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+            "name": "chainTool",
+            "label": "ChainTool",
+            "description": "Use a chain as allowed tool for agent",
+            "type": "ChainTool | DynamicTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 636,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2382.3326311801343,
+        "y": -333.61314095002547
+      },
+      "dragging": false
+    },
+    {
+      "id": "customTool_0",
+      "position": {
+        "x": 2384.688712990727,
+        "y": -667.3479427975666
+      },
+      "type": "customNode",
+      "data": {
+        "id": "customTool_0",
+        "label": "Custom Tool",
+        "version": 1,
+        "name": "customTool",
+        "type": "CustomTool",
+        "baseClasses": [
+          "CustomTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use custom tool you've created in Flowise within chatflow",
+        "inputParams": [
+          {
+            "label": "Select Tool",
+            "name": "selectedTool",
+            "type": "asyncOptions",
+            "loadMethod": "listTools",
+            "id": "customTool_0-input-selectedTool-asyncOptions"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "selectedTool": "053523f7-101b-404d-8ec7-358ebacdfd85"
+        },
+        "outputAnchors": [
+          {
+            "id": "customTool_0-output-customTool-CustomTool|Tool|StructuredTool|Runnable",
+            "name": "customTool",
+            "label": "CustomTool",
+            "description": "Use custom tool you've created in Flowise within chatflow",
+            "type": "CustomTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 310,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2384.688712990727,
+        "y": -667.3479427975666
+      },
+      "dragging": false
+    },
+    {
+      "id": "bufferMemory_0",
+      "position": {
+        "x": 2374.1880989597794,
+        "y": 329.56971217022624
+      },
+      "type": "customNode",
+      "data": {
+        "id": "bufferMemory_0",
+        "label": "Buffer Memory",
+        "version": 2,
+        "name": "bufferMemory",
+        "type": "BufferMemory",
+        "baseClasses": [
+          "BufferMemory",
+          "BaseChatMemory",
+          "BaseMemory"
+        ],
+        "category": "Memory",
+        "description": "Retrieve chat messages stored in database",
+        "inputParams": [
+          {
+            "label": "Session Id",
+            "name": "sessionId",
+            "type": "string",
+            "description": "If not specified, a random id will be used. Learn <a target=\"_blank\" href=\"https://docs.flowiseai.com/memory#ui-and-embedded-chat\">more</a>",
+            "default": "",
+            "additionalParams": true,
+            "optional": true,
+            "id": "bufferMemory_0-input-sessionId-string"
+          },
+          {
+            "label": "Memory Key",
+            "name": "memoryKey",
+            "type": "string",
+            "default": "chat_history",
+            "additionalParams": true,
+            "id": "bufferMemory_0-input-memoryKey-string"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "sessionId": "",
+          "memoryKey": "chat_history"
+        },
+        "outputAnchors": [
+          {
+            "id": "bufferMemory_0-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+            "name": "bufferMemory",
+            "label": "BufferMemory",
+            "description": "Retrieve chat messages stored in database",
+            "type": "BufferMemory | BaseChatMemory | BaseMemory"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 273,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2374.1880989597794,
+        "y": 329.56971217022624
+      },
+      "dragging": false
+    },
+    {
+      "id": "toolAgent_0",
+      "position": {
+        "x": 3105.1774006752594,
+        "y": 40.74009941654768
+      },
+      "type": "customNode",
+      "data": {
+        "id": "toolAgent_0",
+        "label": "Tool Agent",
+        "version": 1,
+        "name": "toolAgent",
+        "type": "AgentExecutor",
+        "baseClasses": [
+          "AgentExecutor",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Agents",
+        "description": "Agent that uses Function Calling to pick the tools and args to call",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessage",
+            "type": "string",
+            "default": "You are a helpful AI assistant.",
+            "rows": 4,
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_0-input-systemMessage-string"
+          },
+          {
+            "label": "Max Iterations",
+            "name": "maxIterations",
+            "type": "number",
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_0-input-maxIterations-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Tools",
+            "name": "tools",
+            "type": "Tool",
+            "list": true,
+            "id": "toolAgent_0-input-tools-Tool"
+          },
+          {
+            "label": "Memory",
+            "name": "memory",
+            "type": "BaseChatMemory",
+            "id": "toolAgent_0-input-memory-BaseChatMemory"
+          },
+          {
+            "label": "Tool Calling Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "description": "Only compatible with models that are capable of function calling. ChatOpenAI, ChatMistral, ChatAnthropic, ChatVertexAI",
+            "id": "toolAgent_0-input-model-BaseChatModel"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "toolAgent_0-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "tools": [
+            "{{customTool_0.data.instance}}",
+            "{{chainTool_0.data.instance}}"
+          ],
+          "memory": "{{bufferMemory_0.data.instance}}",
+          "model": "{{chatOpenAI_3.data.instance}}",
+          "systemMessage": "You are a helpful assistant. Your job is to solve programming task by planning, programming and testing solutions built. \n",
+          "inputModeration": "",
+          "maxIterations": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "toolAgent_0-output-toolAgent-AgentExecutor|BaseChain|Runnable",
+            "name": "toolAgent",
+            "label": "AgentExecutor",
+            "description": "Agent that uses Function Calling to pick the tools and args to call",
+            "type": "AgentExecutor | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 474,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 3105.1774006752594,
+        "y": 40.74009941654768
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatOpenAI_3",
+      "position": {
+        "x": 2373.878281204289,
+        "y": 627.7521449052678
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatOpenAI_3",
+        "label": "ChatOpenAI",
+        "version": 6,
+        "name": "chatOpenAI",
+        "type": "ChatOpenAI",
+        "baseClasses": [
+          "ChatOpenAI",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around OpenAI large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "openAIApi"
+            ],
+            "id": "chatOpenAI_3-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "gpt-3.5-turbo",
+            "id": "chatOpenAI_3-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatOpenAI_3-input-temperature-number"
+          },
+          {
+            "label": "Max Tokens",
+            "name": "maxTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_3-input-maxTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_3-input-topP-number"
+          },
+          {
+            "label": "Frequency Penalty",
+            "name": "frequencyPenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_3-input-frequencyPenalty-number"
+          },
+          {
+            "label": "Presence Penalty",
+            "name": "presencePenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_3-input-presencePenalty-number"
+          },
+          {
+            "label": "Timeout",
+            "name": "timeout",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_3-input-timeout-number"
+          },
+          {
+            "label": "BasePath",
+            "name": "basepath",
+            "type": "string",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_3-input-basepath-string"
+          },
+          {
+            "label": "BaseOptions",
+            "name": "baseOptions",
+            "type": "json",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenAI_3-input-baseOptions-json"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Automatically uses gpt-4-vision-preview when image is being uploaded from chat. Only works with LLMChain, Conversation Chain, ReAct Agent, and Conversational Agent",
+            "default": false,
+            "optional": true,
+            "id": "chatOpenAI_3-input-allowImageUploads-boolean"
+          },
+          {
+            "label": "Image Resolution",
+            "description": "This parameter controls the resolution in which the model views the image.",
+            "name": "imageResolution",
+            "type": "options",
+            "options": [
+              {
+                "label": "Low",
+                "name": "low"
+              },
+              {
+                "label": "High",
+                "name": "high"
+              },
+              {
+                "label": "Auto",
+                "name": "auto"
+              }
+            ],
+            "default": "low",
+            "optional": false,
+            "additionalParams": true,
+            "id": "chatOpenAI_3-input-imageResolution-options"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatOpenAI_3-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "{{inMemoryCache_0.data.instance}}",
+          "modelName": "gpt-4-turbo",
+          "temperature": "0.1",
+          "maxTokens": "",
+          "topP": "",
+          "frequencyPenalty": "",
+          "presencePenalty": "",
+          "timeout": "",
+          "basepath": "",
+          "baseOptions": "",
+          "allowImageUploads": "",
+          "imageResolution": "low"
+        },
+        "outputAnchors": [
+          {
+            "id": "chatOpenAI_3-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatOpenAI",
+            "label": "ChatOpenAI",
+            "description": "Wrapper around OpenAI large language models that use the Chat endpoint",
+            "type": "ChatOpenAI | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 729,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 2373.878281204289,
+        "y": 627.7521449052678
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "promptTemplate_0",
+      "sourceHandle": "promptTemplate_0-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable",
+      "target": "llmChain_0",
+      "targetHandle": "llmChain_0-input-prompt-BasePromptTemplate",
+      "type": "buttonedge",
+      "id": "promptTemplate_0-promptTemplate_0-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable-llmChain_0-llmChain_0-input-prompt-BasePromptTemplate"
+    },
+    {
+      "source": "chatOpenAI_0",
+      "sourceHandle": "chatOpenAI_0-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "llmChain_0",
+      "targetHandle": "llmChain_0-input-model-BaseLanguageModel",
+      "type": "buttonedge",
+      "id": "chatOpenAI_0-chatOpenAI_0-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable-llmChain_0-llmChain_0-input-model-BaseLanguageModel"
+    },
+    {
+      "source": "promptTemplate_1",
+      "sourceHandle": "promptTemplate_1-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable",
+      "target": "llmChain_1",
+      "targetHandle": "llmChain_1-input-prompt-BasePromptTemplate",
+      "type": "buttonedge",
+      "id": "promptTemplate_1-promptTemplate_1-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable-llmChain_1-llmChain_1-input-prompt-BasePromptTemplate"
+    },
+    {
+      "source": "llmChain_0",
+      "sourceHandle": "llmChain_0-output-outputPrediction-string|json",
+      "target": "promptTemplate_1",
+      "targetHandle": "promptTemplate_1-input-promptValues-json",
+      "type": "buttonedge",
+      "id": "llmChain_0-llmChain_0-output-outputPrediction-string|json-promptTemplate_1-promptTemplate_1-input-promptValues-json"
+    },
+    {
+      "source": "chatOpenAI_1",
+      "sourceHandle": "chatOpenAI_1-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "llmChain_1",
+      "targetHandle": "llmChain_1-input-model-BaseLanguageModel",
+      "type": "buttonedge",
+      "id": "chatOpenAI_1-chatOpenAI_1-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable-llmChain_1-llmChain_1-input-model-BaseLanguageModel"
+    },
+    {
+      "source": "inMemoryCache_0",
+      "sourceHandle": "inMemoryCache_0-output-inMemoryCache-InMemoryCache|BaseCache",
+      "target": "chatOpenAI_0",
+      "targetHandle": "chatOpenAI_0-input-cache-BaseCache",
+      "type": "buttonedge",
+      "id": "inMemoryCache_0-inMemoryCache_0-output-inMemoryCache-InMemoryCache|BaseCache-chatOpenAI_0-chatOpenAI_0-input-cache-BaseCache"
+    },
+    {
+      "source": "inMemoryCache_0",
+      "sourceHandle": "inMemoryCache_0-output-inMemoryCache-InMemoryCache|BaseCache",
+      "target": "chatOpenAI_1",
+      "targetHandle": "chatOpenAI_1-input-cache-BaseCache",
+      "type": "buttonedge",
+      "id": "inMemoryCache_0-inMemoryCache_0-output-inMemoryCache-InMemoryCache|BaseCache-chatOpenAI_1-chatOpenAI_1-input-cache-BaseCache"
+    },
+    {
+      "source": "chatOpenAI_2",
+      "sourceHandle": "chatOpenAI_2-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "llmChain_2",
+      "targetHandle": "llmChain_2-input-model-BaseLanguageModel",
+      "type": "buttonedge",
+      "id": "chatOpenAI_2-chatOpenAI_2-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable-llmChain_2-llmChain_2-input-model-BaseLanguageModel"
+    },
+    {
+      "source": "promptTemplate_2",
+      "sourceHandle": "promptTemplate_2-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable",
+      "target": "llmChain_2",
+      "targetHandle": "llmChain_2-input-prompt-BasePromptTemplate",
+      "type": "buttonedge",
+      "id": "promptTemplate_2-promptTemplate_2-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable-llmChain_2-llmChain_2-input-prompt-BasePromptTemplate"
+    },
+    {
+      "source": "inMemoryCache_0",
+      "sourceHandle": "inMemoryCache_0-output-inMemoryCache-InMemoryCache|BaseCache",
+      "target": "chatOpenAI_2",
+      "targetHandle": "chatOpenAI_2-input-cache-BaseCache",
+      "type": "buttonedge",
+      "id": "inMemoryCache_0-inMemoryCache_0-output-inMemoryCache-InMemoryCache|BaseCache-chatOpenAI_2-chatOpenAI_2-input-cache-BaseCache"
+    },
+    {
+      "source": "structuredOutputParser_0",
+      "sourceHandle": "structuredOutputParser_0-output-structuredOutputParser-StructuredOutputParser|BaseLLMOutputParser|Runnable",
+      "target": "llmChain_2",
+      "targetHandle": "llmChain_2-input-outputParser-BaseLLMOutputParser",
+      "type": "buttonedge",
+      "id": "structuredOutputParser_0-structuredOutputParser_0-output-structuredOutputParser-StructuredOutputParser|BaseLLMOutputParser|Runnable-llmChain_2-llmChain_2-input-outputParser-BaseLLMOutputParser"
+    },
+    {
+      "source": "llmChain_1",
+      "sourceHandle": "llmChain_1-output-outputPrediction-string|json",
+      "target": "promptTemplate_2",
+      "targetHandle": "promptTemplate_2-input-promptValues-json",
+      "type": "buttonedge",
+      "id": "llmChain_1-llmChain_1-output-outputPrediction-string|json-promptTemplate_2-promptTemplate_2-input-promptValues-json"
+    },
+    {
+      "source": "llmChain_2",
+      "sourceHandle": "llmChain_2-output-llmChain-LLMChain|BaseChain|Runnable",
+      "target": "chainTool_0",
+      "targetHandle": "chainTool_0-input-baseChain-BaseChain",
+      "type": "buttonedge",
+      "id": "llmChain_2-llmChain_2-output-llmChain-LLMChain|BaseChain|Runnable-chainTool_0-chainTool_0-input-baseChain-BaseChain"
+    },
+    {
+      "source": "customTool_0",
+      "sourceHandle": "customTool_0-output-customTool-CustomTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "customTool_0-customTool_0-output-customTool-CustomTool|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "bufferMemory_0",
+      "sourceHandle": "bufferMemory_0-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-memory-BaseChatMemory",
+      "type": "buttonedge",
+      "id": "bufferMemory_0-bufferMemory_0-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory-toolAgent_0-toolAgent_0-input-memory-BaseChatMemory"
+    },
+    {
+      "source": "chainTool_0",
+      "sourceHandle": "chainTool_0-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "chainTool_0-chainTool_0-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "inMemoryCache_0",
+      "sourceHandle": "inMemoryCache_0-output-inMemoryCache-InMemoryCache|BaseCache",
+      "target": "chatOpenAI_3",
+      "targetHandle": "chatOpenAI_3-input-cache-BaseCache",
+      "type": "buttonedge",
+      "id": "inMemoryCache_0-inMemoryCache_0-output-inMemoryCache-InMemoryCache|BaseCache-chatOpenAI_3-chatOpenAI_3-input-cache-BaseCache"
+    },
+    {
+      "source": "chatOpenAI_3",
+      "sourceHandle": "chatOpenAI_3-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-model-BaseChatModel",
+      "type": "buttonedge",
+      "id": "chatOpenAI_3-chatOpenAI_3-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable-toolAgent_0-toolAgent_0-input-model-BaseChatModel"
+    }
+  ]
+}

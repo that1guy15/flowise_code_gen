@@ -1,0 +1,8 @@
+{
+  "name": "create_github_gist",
+  "description": "Use this tool when asked to create a GitHub Gist ",
+  "color": "linear-gradient(rgb(39,26,227), rgb(170,106,182))",
+  "iconSrc": "",
+  "schema": "[{\"id\":0,\"property\":\"codeBlock\",\"description\":\"Code block generated to use as the payload\",\"type\":\"string\",\"required\":true},{\"id\":1,\"property\":\"description\",\"description\":\"a short description of the codes usage\",\"type\":\"string\",\"required\":true},{\"id\":2,\"property\":\"filename\",\"description\":\"a reasonable filename for the code-block including extension\",\"type\":\"string\",\"required\":true}]",
+  "func": "// Create the Gist data\nconst gistData = {\n  description: JSON.stringify($description),\n  public: true,\n  files: {\n    'example.js': {\n      content: JSON.stringify(\"Hello World\")\n    }\n  }\n};\n\nconst options = {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/vnd.github+json',\n    'X-GitHub-Api-Version': '2022-11-28',\n    'Authorization': `Bearer <GITHUB_TOKEN>`\n  },\n  body: JSON.stringify(gistData)\n};\n\nconst url = 'https://api.github.com/gists'\n\n// Make the API request to create the Gist\ntry {\n\tconst response = await fetch(url, options);\n\tconst text = await response.text();\n\treturn text;\n} catch (error) {\n\tconsole.error(error);\n\treturn '';\n}"
+}

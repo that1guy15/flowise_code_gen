@@ -1,0 +1,8 @@
+{
+  "name": "github_test1",
+  "description": "Use this tool when asked to create or modify a GitHub Gist",
+  "color": "linear-gradient(rgb(161,158,113), rgb(138,248,146))",
+  "iconSrc": "",
+  "schema": "[]",
+  "func": "import { Octokit } from \"@octokit/core\";\n\nconst octokit = new Octokit({\n  auth: '<GITHUB_KEY>'\n})\n\nawait octokit.request('POST /gists', {\n  description: 'Example of a gist',\n  'public': true,\n  files: {\n    'README.md': {\n      content: 'Hello World'\n    }\n  },\n  headers: {\n    'X-GitHub-Api-Version': '2022-11-28'\n  }\n})"
+}
